@@ -18,6 +18,7 @@ package org.springframework.samples.petclinic.owner;
 import java.util.List;
 import java.util.Map;
 
+import org.ow2.cmi.lb.util.PolicyFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -79,6 +80,8 @@ class OwnerController {
 
 		this.owners.save(owner);
 		redirectAttributes.addFlashAttribute("message", "New Owner Created");
+		PolicyFactory policy = new HtmlPolicyBuilder().toFactory();
+		String myString = policy.sanitize("redirect:/owners/" + owner.getId());
 		return "redirect:/owners/" + owner.getId();
 	}
 
