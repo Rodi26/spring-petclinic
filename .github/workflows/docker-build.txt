@@ -25,4 +25,4 @@ this is a test
             uses: docker/build-push-action@v6
             with:
               push: true
-              tags: rodolphefplus.jfrog.io/w2-week2-oci-dev-virtual/spring-petclinic:latest
+              tags: rodolphefplus.jfrog.io/w2-week2-oci-dev-local/spring-petclinic:latest
