@@ -18,11 +18,11 @@ this is a test
           - name: Login to Jfrog Artifactory
             uses: docker/login-action@v3
             with:
-              registry: rodi26.jfrog.io
-              username: 'rodolphe.fontaine@orange.fr'
+              registry: rodolphefplus.jfrog.io
+              username: 'rodolphef@jfrog.io'
               password: ${{ secrets.JF_ACCESS_TOKEN }}
           - name: Build and push
             uses: docker/build-push-action@v6
             with:
               push: true
-              tags: rodi26.jfrog.io/rodi26-docker/spring-petclinic:latest
+              tags: rodolphefplus.jfrog.io/w2-week2-oci-dev-virtual/spring-petclinic:latest
