@@ -120,7 +120,7 @@ jobs:
       - name: Set Up Docker
         uses: docker-practice/actions-setup-docker@master
       - name: Docker Run
-        run: docker run -d -p 8080:8080 rodi26.jfrog.io/rodi26-docker/spring-petclinic:latest       
+        run: docker run -d -p 8080:8080 rodolphefplus.jfrog.io/w2-week2-oci-dev-virtual/spring-petclinic:latest      
 
       - name: Run JMeter Action on a test
         uses: rbhadti94/apache-jmeter-action@v0.5.0
@@ -144,7 +144,7 @@ jobs:
 
       - name: Build Tag and push Docker Image
         env:
-          IMAGE_NAME: rodi26.jfrog.io/rodi26-docker/jfrog-spring-petclinic:latest
+          IMAGE_NAME: rodolphefplus.jfrog.io/w2-week2-oci-dev-virtual/spring-petclinic:latest
         run: |
           jf docker build -t $IMAGE_NAME .
           jf docker push $IMAGE_NAME
