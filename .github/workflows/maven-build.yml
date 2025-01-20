@@ -25,6 +25,10 @@ jobs:
           java-version: ${{matrix.java}}
           distribution: 'adopt'
           cache: maven
+      - name: Extracting the artifact name and version from POM file
+        run: |
+            echo "petclinicArtifactName=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
+            echo "petclinicVersion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
@@ -35,6 +39,9 @@ jobs:
           jf mvnc --repo-resolve-releases w2-week2-maven-dev-virtual  --repo-resolve-snapshots  w2-week2-maven-dev-virtual --repo-deploy-releases w2-week2-maven-dev-virtual --repo-deploy-snapshots w2-week2-maven-dev-virtual 
       - name: Build Maven 
         run: jf mvn -B deploy
+      - name: Build container image
+        run: jf docker build -t "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}" --build-arg petclinicArtifact=./target/${{ env.petclinicArtifactName }}-${{ env.petclinicVersion }}.jar .  --project "${{ vars.JFROG_PROJECT }}"
+
 
 
 
