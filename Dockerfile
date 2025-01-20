@@ -1,4 +1,4 @@
-FROM openjdk:22-bullseye
+FROM rodolphefplus.jfrog.io/w2-week2-oci-dev-virtual/openjdk:22-bullseye
 
 EXPOSE 8888
 
