@@ -1,11 +1,9 @@
-FROM eclipse-temurin:21-jdk-jammy
-EXPOSE 8080
-WORKDIR /app
+FROM openjdk:22-bullseye
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:resolve
+EXPOSE 8888
 
-COPY src ./src
+# copy jar into image
+COPY $petclinicArtifact /usr/bin/spring-petclinic-rodolphef.jar
 
-CMD ["./mvnw", "spring-boot:run"]
+# run application with this command line 
+ENTRYPOINT ["java","-jar","/usr/bin/spring-petclinic-rodolphef.jar","--server.port=8888"]
