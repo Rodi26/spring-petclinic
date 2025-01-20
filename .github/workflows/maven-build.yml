@@ -40,7 +40,7 @@ jobs:
 
   scan-repository:
     runs-on: ubuntu-latest
-    needs: build-and-tag
+    needs: build
     strategy:
       matrix:
         # The repository scanning will be triggered periodically on the following branches.
@@ -87,7 +87,7 @@ jobs:
 
   test-action:
     runs-on: ubuntu-latest
-    needs: build-and-tag
+    needs: build
     strategy:
       matrix:
         java: [ '21' ]
@@ -120,7 +120,7 @@ jobs:
     
   build-and-tag:
     runs-on: ubuntu-latest
-    needs: Run_test
+    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
