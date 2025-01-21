@@ -36,24 +36,24 @@ jobs:
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
       - name : Config JFrog CLI
         run : |
-          jf mvnc --repo-resolve-releases w2-week2-maven-dev-virtual  --repo-resolve-snapshots  w2-week2-maven-dev-virtual --repo-deploy-releases w2-week2-maven-dev-virtual --repo-deploy-snapshots w2-week2-maven-dev-virtual 
+          jf mvnc --repo-deploy-releases=${{ vars.MVN_DEV_REPO_DEPLOY_RELEASES }} --repo-deploy-snapshots=${{ vars.MVN_DEV_REPO_DEPLOY_SNAPSHOTS }} --repo-resolve-releases=${{ vars.MVN_DEV_REPO_RESOLVE_RELEASES }} --repo-resolve-snapshots=${{ vars.MVN_DEV_REPO_RESOLVE_SNAPSHOTS }}
       - name: Build Maven 
-        run: jf mvn -B deploy
+        run: jf mvn -B deploy --project "${{ vars.JFROG_PROJECT }}"
       - name: Build container image
         run: |
           jf docker build -t "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}" --build-arg petclinicArtifact=./target/${{ env.petclinicArtifactName }}-${{ env.petclinicVersion }}.jar .  --project "${{ vars.JFROG_PROJECT }}"
       #- name: Scan docker image locally with JFrog Xray
       #  run: jf docker scan "${{ vars.DOCKER_DEV_REPO }}/artifactory/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}"
       - name: Push container image to JFrog Artifactory
-        run: jf docker push "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}"
+        run: jf docker push "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}"  --project "${{ vars.JFROG_PROJECT }}"
       - name: Publish to JFrog Artifactory
         run: |
           # Collect environment variables for the build
-          jf rt bce 
+          jf rt bce --project "${{ vars.JFROG_PROJECT }}" 
           # Collect VCS details from git and add them to the build
-          jf rt bag
+          jf rt bag --project "${{ vars.JFROG_PROJECT }}"
           # Publish build info
-          jf rt bp
+          jf rt bp --project "${{ vars.JFROG_PROJECT }}"
       #- name: Scan build with JFrog Xray
       #  run: jf build-scan  --fail=false
 
