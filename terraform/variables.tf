@@ -36,3 +36,23 @@ variable "github_repository" {
   type = string
   description = "GitHub repository name"
 }
+
+variable "jfrog_url" {
+  type = string
+  default = "http://localhost:8081"
+}
+
+variable "OIDC_PROVIDER_NAME" {
+  type = string
+  description = "OIDC Provider Name"
+}
+
+variable "OIDC_AUDIENCE" {
+  type = string
+  description = "OIDC Audience"
+}
+
+variable "OIDC_IDENTITY_MAPPING" {
+  type = string
+  description = "OIDC identity mapping"
+}

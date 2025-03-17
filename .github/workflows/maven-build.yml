@@ -40,9 +40,8 @@ jobs:
         env:
           JF_URL: ${{ secrets.JF_URL }}
         with:
-            oidc-provider-name: rodolphef-github
-            oidc-audience: rodolphef-audience
-          #JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+            oidc-provider-name:  ${{ var.OIDC_PROVIDER_NAME  }}
+            oidc-audience:  ${{ var.OIDC_AUDIENCE  }}
       - name : Config JFrog CLI
         run : |
           jf mvnc --repo-deploy-releases=${{ vars.MVN_DEV_REPO_DEPLOY_RELEASES }} --repo-deploy-snapshots=${{ vars.MVN_DEV_REPO_DEPLOY_SNAPSHOTS }} --repo-resolve-releases=${{ vars.MVN_DEV_REPO_RESOLVE_RELEASES }} --repo-resolve-snapshots=${{ vars.MVN_DEV_REPO_RESOLVE_SNAPSHOTS }}
