@@ -1,11 +1,10 @@
 version: 1
 type: maven
 resolver:
-    serverId: rodolphef.jfrog.io
-    snapshotRepo: st-week2-maven-dev-virtual
-    releaseRepo: st-week2-maven-dev-virtual
+    serverId: rodolphefplus.jfrog.io
+    snapshotRepo: w2-week2-maven-dev-virtual
+    releaseRepo: w2-week2-maven-dev-virtual
 deployer:
-    serverId: rodolphef.jfrog.io
-    snapshotRepo: st-week2-maven-dev-virtual
-    releaseRepo: st-week2-maven-dev-virtual
-useWrapper: true
+    serverId: rodolphefplus.jfrog.io
+    snapshotRepo: w2-week2-maven-dev-virtual
+    releaseRepo: w2-week2-maven-dev-virtual
