@@ -40,7 +40,7 @@ jobs:
         env:
           JF_URL: ${{ secrets.JF_URL }}
         with:
-            version: '2.80.0'
+            version: '2.88.0'
             oidc-provider-name:  ${{ vars.OIDC_PROVIDER_NAME  }}
             oidc-audience:  ${{ vars.OIDC_AUDIENCE  }}
       - name : Config JFrog CLI
