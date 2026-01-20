@@ -8,16 +8,16 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
   workflow_dispatch:
-    schedule:
-      # The repository will be scanned once a day at 00:00 GMT.
-      - cron: "0 0 * * *"
+  schedule:
+    # The repository will be scanned once a day at 00:00 GMT.
+    - cron: "0 0 * * *"
 permissions:
   actions: read           # for detecting the Github Actions environment
   id-token: write         # for creating OIDC tokens for signing
   packages: write         # for uploading attestations
   contents: write          # read the contents permission
+  pull-requests: write
   security-events: write  # for uploading code scanning
 
 jobs:
@@ -73,7 +73,7 @@ jobs:
         run: jf docker login
       - name: Build container image
         run: |
-          jf docker build -t "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}" --build-arg petclinicArtifact=./target/${{ env.petclinicArtifactName }}-${{ env.petclinicArtifactName }}-${{ env.petclinicVersion }}.jar .  --project "${{ vars.JFROG_PROJECT }}"
+          jf docker build -t "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}" --build-arg petclinicArtifact=./target/${{ env.petclinicArtifactName }}-${{ env.petclinicVersion }}.jar .  --project "${{ vars.JFROG_PROJECT }}"
       - name: Scan docker image locally with JFrog Xray
         run: jf docker scan "${{ vars.DOCKER_DEV_REPO }}/${{ vars.DOCKER_IMAGE_PREFIX }}${{ env.petclinicArtifactName }}:${{ env.petclinicVersion }}"
       - name: Push container image to JFrog Artifactory
@@ -94,6 +94,7 @@ jobs:
   scan-repository:
     runs-on: ubuntu-latest
     needs: build
+    if: github.event_name != 'pull_request'
     strategy:
       matrix:
         # The repository scanning will be triggered periodically on the following branches.
