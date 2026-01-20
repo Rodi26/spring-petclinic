@@ -36,11 +36,10 @@ jobs:
         with:
           maven-version: 3.9.11
 
-      - name: Show tool versions
+      - name: Show tool versions (Java/Maven)
         run: |
           java -version
           mvn -v
-          jf --version
       - name: Extracting the artifact name and version from POM file
         run: |
             echo "petclinicArtifactName=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
@@ -53,6 +52,8 @@ jobs:
             version: '2.88.0'
             oidc-provider-name:  ${{ vars.OIDC_PROVIDER_NAME  }}
             oidc-audience:  ${{ vars.OIDC_AUDIENCE  }}
+      - name: Show JFrog CLI version
+        run: jf --version
       - name : Config JFrog CLI
         run : |
           jf mvnc --repo-deploy-releases=${{ vars.MVN_DEV_REPO_DEPLOY_RELEASES }} --repo-deploy-snapshots=${{ vars.MVN_DEV_REPO_DEPLOY_SNAPSHOTS }} --repo-resolve-releases=${{ vars.MVN_DEV_REPO_RESOLVE_RELEASES }} --repo-resolve-snapshots=${{ vars.MVN_DEV_REPO_RESOLVE_SNAPSHOTS }}
