@@ -50,7 +50,7 @@ jobs:
         continue-on-error: true
         run: jf audit --licenses --format=table --mvn=true --watches watch_maven_licenses --fail=false
       - name: Build Maven 
-        run: mvn -B deploy
+        run: jf mvn -B deploy --project "${{ vars.JFROG_PROJECT }}"
       - name: Scan jar file locally with JFrog Xray
         run: jf scan "./target/${{ env.petclinicArtifactName }}-${{ env.petclinicVersion }}.jar" --format=table  --watches  watch_maven_code
       - name: Build container image
