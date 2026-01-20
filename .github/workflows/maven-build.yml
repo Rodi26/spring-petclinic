@@ -29,8 +29,18 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: ${{matrix.java}}
-          distribution: 'adopt'
+          distribution: 'temurin'
           cache: maven
+      - name: Set up Maven (pin 3.9.11)
+        uses: stCarolas/setup-maven@v5
+        with:
+          maven-version: 3.9.11
+
+      - name: Show tool versions
+        run: |
+          java -version
+          mvn -v
+          jf --version
       - name: Extracting the artifact name and version from POM file
         run: |
             echo "petclinicArtifactName=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)" >> $GITHUB_ENV
