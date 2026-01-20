@@ -1,4 +1,4 @@
-FROM eclipse-temurin:21-jre-jammy
+FROM rodolphefplus.jfrog.io/w2-week2-oci-dev-virtual/eclipse-temurin:21-jre-jammy
 
 EXPOSE 8888
 
