@@ -8,3 +8,4 @@ deployer:
     serverId: rodolphefplus.jfrog.io
     snapshotRepo: w2-week2-maven-dev-virtual
     releaseRepo: w2-week2-maven-dev-virtual
+useWrapper: true
