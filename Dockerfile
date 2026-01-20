@@ -1,9 +1,9 @@
-FROM openjdk:22-bullseye
+FROM eclipse-temurin:21-jre-jammy
 
 EXPOSE 8888
 
 # copy jar into image
 COPY $petclinicArtifact /usr/bin/spring-petclinic-rodolphef.jar
 
-# run application with this command line 
+# run application
 ENTRYPOINT ["java","-jar","/usr/bin/spring-petclinic-rodolphef.jar","--server.port=8888"]
