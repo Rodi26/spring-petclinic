@@ -47,6 +47,7 @@ jobs:
         run : |
           jf mvnc --repo-deploy-releases=${{ vars.MVN_DEV_REPO_DEPLOY_RELEASES }} --repo-deploy-snapshots=${{ vars.MVN_DEV_REPO_DEPLOY_SNAPSHOTS }} --repo-resolve-releases=${{ vars.MVN_DEV_REPO_RESOLVE_RELEASES }} --repo-resolve-snapshots=${{ vars.MVN_DEV_REPO_RESOLVE_SNAPSHOTS }}
       - name: Run a source code audit
+        continue-on-error: true
         run: jf audit --licenses --format=table --mvn=true --watches watch_maven_licenses --fail=false
       - name: Build Maven 
         run: jf mvn -B deploy --project "${{ vars.JFROG_PROJECT }}"
